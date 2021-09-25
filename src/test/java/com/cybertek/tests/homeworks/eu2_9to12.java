@@ -34,13 +34,8 @@ Step 4. Verify that following message is displayed: “This page returned a 200 
      */
     @Test
     void testCase9(){
-        driver.get("https://practice-cybertekschool.herokuapp.com");
-
-        driver.findElement(By.linkText("Status Codes")).click();
-
-        driver.findElement(By.linkText("200")).click();
-
-        Assert.assertTrue(driver.findElement(By.xpath("//h3/following-sibling::p")).getText().contains("This page returned a 200 status code"));
+        String statCode = "200";
+        Assert.assertTrue(getMessageText(statCode).contains("This page returned a " + statCode + " status code"));
     }
 
     /*
@@ -51,17 +46,42 @@ Step 4. Verify that following message is displayed: “This page returned a 301 
      */
     @Test
     void testCase10(){
+        String statCode = "301";
+        Assert.assertTrue(getMessageText(statCode).contains("This page returned a " + statCode + " status code"));
+    }
+
+    /*
+Step 1. Go to “https://practice-cybertekschool.herokuapp.com”
+Step 3. And click on “Status Codes”.
+Step 4. Then click on “404”.
+Step 5. Verify that following message is displayed: “This page returned a 404 status code”
+     */
+    @Test
+    void testCase11(){
+        String statCode = "404";
+        Assert.assertTrue(getMessageText(statCode).contains("This page returned a " + statCode + " status code"));
+    }
+
+    /*
+Step 1. Go to “https://practice-cybertekschool.herokuapp.com”
+Step 3. And click on “Status Codes”.
+Step 4. Then click on “500”.
+Step 5. Verify that following message is displayed: “This page returned a 500 status code”
+     */
+    @Test
+    void testCase12(){
+        String statCode = "500";
+        Assert.assertTrue(getMessageText(statCode).contains("This page returned a " + statCode + " status code"));
+    }
+
+    String getMessageText(String statusCode){
         driver.get("https://practice-cybertekschool.herokuapp.com");
 
         driver.findElement(By.linkText("Status Codes")).click();
 
-        driver.findElement(By.linkText("301")).click();
+        driver.findElement(By.linkText(statusCode)).click();
 
-        Assert.assertTrue(driver.findElement(By.xpath("//h3/following-sibling::p")).getText().contains("This page returned a 301 status code"));
-    }
-
-    void repeatedActions(){
-
+        return driver.findElement(By.xpath("//h3/following-sibling::p")).getText();
     }
 
 }
